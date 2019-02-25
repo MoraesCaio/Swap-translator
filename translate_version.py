@@ -9,7 +9,7 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument('-v', '--version', type=int,
                     default=3, help='Open-Signs & Python version.')
-parser.add_argument('file', help='File to translate.')
+parser.add_argument('file', nargs='?', help='File to translate.')
 
 args, _ = parser.parse_known_args()
 
@@ -53,7 +53,8 @@ elif args.version == 2:
         sys.exit(-1)
 
 # TRANSLATION
-src_path = os.path.join(current_version, 'vlibras-translate/src')
-translator_path = os.path.join(src_path, 'TraduzirArquivo.py')
-result = subprocess.run(['python' + str(args.version), translator_path, args.file])
-print(result)
+if args.file:
+    src_path = os.path.join(current_version, 'vlibras-translate/src')
+    translator_path = os.path.join(src_path, 'TraduzirArquivo.py')
+    result = subprocess.run(['python' + str(args.version), translator_path, args.file])
+    print(result)
